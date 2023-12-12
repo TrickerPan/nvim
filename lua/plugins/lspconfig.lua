@@ -1,11 +1,9 @@
 return {
   "neovim/nvim-lspconfig",
-  dependencies = {
-    "nvim-lua/plenary.nvim",
-  },
+  version = "*",
   config = function()
     local lspconfig = require("lspconfig")
-    local util = require("helpers.python")
+    local helpers = require("helpers.python")
     lspconfig.pyright.setup({
       settings = {
         python = {
@@ -13,12 +11,12 @@ return {
             typeCheckingMode = "strict",
             diagnosticMode = "workspace",
           },
-          pythonPath = util.get_exec_path(),
+          pythonPath = helpers.get_exec_path(),
         }
       },
     })
-    lspconfig.tsserver.setup({})
-    lspconfig.jdtls.setup({})
-    lspconfig.lua_ls.setup({})
+    lspconfig.tsserver.setup {}
+    lspconfig.jdtls.setup {}
+    lspconfig.lua_ls.setup {}
   end,
 }

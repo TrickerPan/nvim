@@ -46,7 +46,12 @@ function module.get_exec_path()
   end
 
   local cwd = vim.fn.getcwd()
-  local root_dir = util.root_pattern(unpack(root_files))(cwd)
+  local root_dir
+  if basic.lua_version > 5.1 then
+    root_dir = util.root_pattern(table.unpack(root_files))(cwd)
+  else
+    root_dir = util.root_pattern(unpack(root_files))(cwd)
+  end
   if not root_dir then
     return
   end
@@ -58,7 +63,11 @@ function module.get_exec_path()
 
   local python_exec = basic.is_windows and {"Scripts", "python"} or {"bin", "python"}
 
-  return util.path.join(venv_dir, unpack(python_exec))
+  if basic.lua_version > 5.1 then
+    return util.path.join(venv_dir, table.unpack(python_exec))
+  else
+    return util.path.join(venv_dir, unpack(python_exec))
+  end
 end
 
 return module
