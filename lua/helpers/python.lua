@@ -1,5 +1,5 @@
 local util = require("lspconfig.util")
-local basic = require("utils.basic")
+local basic = require("helpers.basic")
 
 local root_files = {
   'pyproject.toml',

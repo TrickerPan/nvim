@@ -5,7 +5,7 @@ return {
   },
   config = function()
     local lspconfig = require("lspconfig")
-    local util = require("utils.python")
+    local util = require("helpers.python")
     lspconfig.pyright.setup({
       settings = {
         python = {

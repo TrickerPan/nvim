@@ -12,7 +12,6 @@ return {
     require("mini.basics").setup()
     require("mini.bracketed").setup()
     require("mini.bufremove").setup()
-    require("mini.clue").setup()
     -- require("mini.colors").setup()
     require("mini.comment").setup()
     require('mini.completion').setup()
@@ -40,5 +39,9 @@ return {
     require('mini.test').setup()
     require('mini.trailspace').setup()
     -- require('mini.visits').setup()
+
+    local helper = require("helpers.mini")
+    local miniclue = require("mini.clue")
+    helper.clue(miniclue)
   end,
 }
