@@ -29,16 +29,15 @@ end
 
 local function get_poetry_venv_dir()
   local output = vim.fn.system("poetry env info -p")
-  if vim.v.shell_error ~= 0 then
-    return
+  if vim.v.shell_error == 0 then
+    local venv_dir = output:match("([^\n]*)")
+    return vim.fn.fnamemodify(venv_dir, ":p")
   end
-  local venv_dir = output:match("([^\n]*)")
-  return vim.fn.fnamemodify(venv_dir, ":p")
 end
 
 local function get_venv_dir()
   local venv_dir = get_poetry_venv_dir()
-  if util.path.is_dir(venv_dir) then
+  if venv_dir ~= nil then
     return venv_dir
   end
 
