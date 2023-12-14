@@ -7,6 +7,19 @@ return {
     pyright.setup()
     lspconfig.tsserver.setup {}
     lspconfig.jdtls.setup {}
-    lspconfig.lua_ls.setup {}
+    lspconfig.lua_ls.setup {
+      settings = {
+        Lua = {
+          runtime = {
+            version = "LuaJIT",
+          },
+          workspace = {
+            library = {
+              vim.env.VIMRUNTIME,
+            },
+          },
+        },
+      },
+    }
   end,
 }
