@@ -1,27 +1,28 @@
-local util = require("lspconfig.util")
 local basic = require("helpers.basic")
+local path = require("helpers.path")
 
 local default_exec_path = "python"
 
-local is_root = (function()
-  return util.root_pattern(
-    'pyproject.toml',
-    'setup.py',
-    'setup.cfg',
-    'requirements.txt',
-    'Pipfile',
-    'pyrightconfig.json',
-    '.git'
-  ) ~= nil
+local root_files = {
+  "pyproject.toml",
+  "setup.py",
+  "setup.cfg",
+  "requirements.txt",
+  "Pipfile",
+  "pyrightconfig.json",
+  ".git",
+}
+
+local root_dir = (function()
+  return path.root_dir(root_files)
 end)()
 
 local function gen_cmd()
   local cmd = {"pyright-langserver", "--stdio"}
 
-  if is_root then
-    local cwd = vim.fn.getcwd()
+  if root_dir then
     table.insert(cmd, "--project")
-    table.insert(cmd, cwd)
+    table.insert(cmd, root_dir)
   end
 
   return cmd
@@ -41,32 +42,28 @@ local function get_venv_dir()
     return venv_dir
   end
 
-  local cwd = vim.fn.getcwd()
-  venv_dir = util.path.join(cwd, ".venv")
-  if util.path.is_dir(venv_dir) then
+  venv_dir = vim.fs.joinpath(root_dir, ".venv")
+  if path.is_dir(venv_dir) then
     return venv_dir
   end
 
-  venv_dir = util.path.join(cwd, "venv")
-  if util.path.is_dir(venv_dir) then
+  venv_dir = vim.fs.joinpath(root_dir, "venv")
+  if path.is_dir(venv_dir) then
     return venv_dir
   end
 end
 
 local function get_exec_path()
-  if not is_root then
-    return default_exec_path
-  end
-
   local venv_dir = get_venv_dir()
   if not venv_dir then
     return default_exec_path
   end
 
+  vim.print(venv_dir)
   if basic.is_windows then
-    return util.path.join(venv_dir, "Scripts", "python.exe")
+    return path.join(venv_dir, "Scripts", "python.exe")
   else
-    return util.path.join(venv_dir, "bin", "python")
+    return path.join(venv_dir, "bin", "python")
   end
 end
 
