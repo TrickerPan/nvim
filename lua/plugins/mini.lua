@@ -37,14 +37,26 @@ return {
     require("mini.statusline").setup()
     require('mini.surround').setup()
     require("mini.tabline").setup()
-    require('mini.test').setup()
+    -- require('mini.test').setup()
     require('mini.trailspace').setup()
     -- require('mini.visits').setup()
 
+    -- extra setup
     local helper = require("helpers.mini")
     helper.setup_ai()
     helper.setup_clue()
     helper.setup_extra()
     helper.setup_hipatterns()
+
+    -- keymaps
+    vim.keymap.set("n", "<leader>pf", "<cmd>lua MiniPick.registry.files()<cr>")
+    vim.keymap.set("n", "<leader>pb", "<cmd>lua MiniPick.registry.buffers()<cr>")
+    vim.keymap.set("n", "<leader>ph", "<cmd>lua MiniPick.registry.hipatterns()<cr>")
+    vim.keymap.set("n", "<leader>pc", "<cmd>lua MiniPick.registry.commands()<cr>")
+    vim.keymap.set("n", "<leader>pk", "<cmd>lua MiniPick.registry.keymaps()<cr>")
+
+    vim.keymap.set("n", "<leader><Space>", "<cmd>lua MiniFiles.open()<cr>")
+
+    vim.keymap.set("n", "<leader>mm", "<cmd>lua MiniMap.toggle()<cr>")
   end,
 }

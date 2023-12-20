@@ -31,6 +31,7 @@ return {
           type = "python",
           request = "launch",
           program = "${file}",
+          justMyCode = true,
           pythonPath = function()
             return python.path
           end,
@@ -40,6 +41,7 @@ return {
           type = "python",
           request = "launch",
           module = "${file}",
+          justMyCode = true,
           pythonPath = function()
             return python.path
           end,
@@ -50,7 +52,7 @@ return {
           request = "launch",
           module = "uvicorn",
           args = { "app.main:app", "--reload" },
-          justMyCode = false,
+          justMyCode = true,
           pythonPath = function()
             return python.path
           end,
