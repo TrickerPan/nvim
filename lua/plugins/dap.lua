@@ -6,6 +6,18 @@ return {
       "mfussenegger/nvim-dap-python",
       "mfussenegger/nvim-jdtls",
     },
+    config = function()
+      local dap = require("dap")
+      -- TODO setup keymaps
+
+      -- python
+      local python = require("dap-python")
+      python.setup("~/.local/virtualenvs/nvim/bin/python")
+      python.test_runners = "pytest"
+
+      -- java
+      local jdtls = require("jdtls")
+    end
   },
   {
     "theHamsta/nvim-dap-virtual-text",
