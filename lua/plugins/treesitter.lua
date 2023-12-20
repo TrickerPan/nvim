@@ -9,7 +9,9 @@ return {
         "java",
         "javascript",
         "typescript",
+        "json",
         "lua",
+        "vimdoc",
       },
 
       sync_install = false,

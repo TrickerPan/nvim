@@ -3,8 +3,21 @@ return {
   version = "*",
   config = function()
     local lspconfig = require("lspconfig")
-    local pyright = require("helpers.pyright")
-    pyright.setup()
+    local python = require("helpers.python")
+    lspconfig.pyright.setup {
+      cmd = python.pyright_cmd,
+      settings = {
+        python = {
+          analysis = {
+            autoSearchPaths = true,
+            diagnosticMode = "openFilesOnly",
+            useLibraryCodeForTypes = true,
+            typeCheckingMode = "strict",
+          },
+          pythonPath = python.path
+        }
+      }
+    }
     lspconfig.tsserver.setup {}
     lspconfig.jdtls.setup {}
     lspconfig.lua_ls.setup {

@@ -1,6 +1,8 @@
 local basic = require("helpers.basic")
 local path = require("helpers.path")
 
+local M = {}
+
 local default_exec_path = "python"
 
 local root_files = {
@@ -13,11 +15,11 @@ local root_files = {
   ".git",
 }
 
-local root_dir = (function()
+M.root_dir = (function()
   return path.root_dir(root_files)
 end)()
 
-local function gen_cmd()
+M.pyright_cmd = (function()
   local cmd = {"pyright-langserver", "--stdio"}
 
   if root_dir then
@@ -26,7 +28,7 @@ local function gen_cmd()
   end
 
   return cmd
-end
+end)()
 
 local function get_poetry_venv_dir()
   local output = vim.fn.system("poetry env info -p")
@@ -42,49 +44,30 @@ local function get_venv_dir()
     return venv_dir
   end
 
-  venv_dir = vim.fs.joinpath(root_dir, ".venv")
+  venv_dir = path.join(root_dir, ".venv")
   if path.is_dir(venv_dir) then
     return venv_dir
   end
 
-  venv_dir = vim.fs.joinpath(root_dir, "venv")
+  venv_dir = path.join(root_dir, "venv")
   if path.is_dir(venv_dir) then
     return venv_dir
   end
 end
 
-local function get_exec_path()
+M.path = (function()
   local venv_dir = get_venv_dir()
   if not venv_dir then
     return default_exec_path
   end
 
-  vim.print(venv_dir)
   if basic.is_windows then
     return path.join(venv_dir, "Scripts", "python.exe")
   else
     return path.join(venv_dir, "bin", "python")
   end
-end
+end)()
 
-local function setup()
-  require("lspconfig").pyright.setup({
-    cmd = gen_cmd(),
-    settings = {
-      python = {
-        analysis = {
-          autoSearchPaths = true,
-          diagnosticMode = "openFilesOnly",
-          useLibraryCodeForTypes = true,
-          typeCheckingMode = "strict",
-        },
-        pythonPath = get_exec_path(),
-      }
-    }
-  })
-end
 
-return {
-  setup = setup
-}
+return M
 
