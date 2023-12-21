@@ -20,7 +20,7 @@ return {
       dap_python.setup(path.home .. "/.local/share/virtualenvs/nvim/bin/python")
       dap_python.test_runners = "pytest"
       dap_python.resolve_python = function()
-	return python.path
+      	return python.path
       end
 
       -- java
@@ -78,6 +78,9 @@ return {
   {
     "theHamsta/nvim-dap-virtual-text",
     version = "*",
+    cond = function()
+      return basic.is_unix
+    end,
     dependencies = {
       "mfussenegger/nvim-dap",
     },
@@ -112,6 +115,9 @@ return {
   {
     "rcarriga/nvim-dap-ui",
     version = "*",
+    cond = function()
+      return basic.is_unix
+    end,
     dependencies = {
       "mfussenegger/nvim-dap",
     },
