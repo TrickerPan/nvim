@@ -22,9 +22,9 @@ end)()
 M.pyright_cmd = (function()
   local cmd = {"pyright-langserver", "--stdio"}
 
-  if root_dir then
+  if M.root_dir then
     table.insert(cmd, "--project")
-    table.insert(cmd, root_dir)
+    table.insert(cmd, M.root_dir)
   end
 
   return cmd

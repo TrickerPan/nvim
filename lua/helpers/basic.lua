@@ -2,6 +2,8 @@ local M = {}
 
 M.is_windows = vim.loop.os_uname().version:match 'Windows'
 
+M.is_unix = not M.is_windows
+
 M.lua_version = (function()
   local version = _VERSION:match('Lua (%d+%.%d+)')
 

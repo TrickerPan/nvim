@@ -1,9 +1,13 @@
+local basic = require("helpers.basic")
 local path = require("helpers.path")
 
 return {
   {
     "mfussenegger/nvim-dap",
     version = "*",
+    cond = function()
+      return basic.is_unix
+    end,
     dependencies = {
       "mfussenegger/nvim-dap-python",
       "mfussenegger/nvim-jdtls",
@@ -14,11 +18,10 @@ return {
       -- python
       local dap_python = require("dap-python")
       dap_python.setup(path.home .. "/.local/share/virtualenvs/nvim/bin/python")
-      -- dap_python.test_runners = "pytest"
-      -- dap_python.resolve_python = function()
-      --   vim.print(python.path)
-      --   return python.path
-      -- end
+      dap_python.test_runners = "pytest"
+      dap_python.resolve_python = function()
+	return python.path
+      end
 
       -- java
       local jdtls = require("jdtls")
@@ -32,9 +35,6 @@ return {
           request = "launch",
           program = "${file}",
           justMyCode = true,
-          pythonPath = function()
-            return python.path
-          end,
         },
         {
           name = "module",
@@ -42,9 +42,6 @@ return {
           request = "launch",
           module = "${file}",
           justMyCode = true,
-          pythonPath = function()
-            return python.path
-          end,
         },
         {
           name = "fastapi",
@@ -53,9 +50,6 @@ return {
           module = "uvicorn",
           args = { "app.main:app", "--reload" },
           justMyCode = true,
-          pythonPath = function()
-            return python.path
-          end,
         }
       }
 
