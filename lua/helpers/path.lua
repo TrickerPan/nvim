@@ -5,7 +5,7 @@ local M = {}
 M.sep = basic.is_windows and "\\" or "/"
 
 M.home = (function()
-  if M.is_windows then
+  if basic.is_windows then
     return os.getenv("USERPROFILE")
   else
     return os.getenv("HOME")
