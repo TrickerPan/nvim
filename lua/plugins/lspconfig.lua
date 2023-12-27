@@ -18,8 +18,9 @@ return {
         }
       }
     }
-    lspconfig.tsserver.setup {}
     lspconfig.jdtls.setup {}
+    lspconfig.sourcekit.setup {}
+    lspconfig.tsserver.setup {}
     lspconfig.lua_ls.setup {
       settings = {
         Lua = {
