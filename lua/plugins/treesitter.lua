@@ -4,13 +4,15 @@ return {
   config = function()
     require('nvim-treesitter.configs').setup({
       ensure_installed = {
-        "markdown",
         "python",
         "java",
         "javascript",
         "typescript",
-        "json",
         "lua",
+        "json",
+        "markdown",
+        "yaml",
+        "toml",
         "vimdoc",
       },
 
