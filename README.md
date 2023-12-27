@@ -42,3 +42,14 @@ Set-Alias -Name vim -Value Start-Nvim
 Set-Alias -Name vi -Value Start-Nvim
 ```
 
+## Python
+
+### Set virtual env
+
+```shell
+mkdir -p $HOME/.local/share/virtualenvs
+cd $HOME/.local/share/virtualenvs
+python -m venv nvim
+./bin/python -m pip install debugpy pytest pynvim
+```
+

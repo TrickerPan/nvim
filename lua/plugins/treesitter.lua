@@ -16,7 +16,6 @@ return {
         "json",
         "yaml",
         "toml",
-
         "markdown",
 
         "lua",
