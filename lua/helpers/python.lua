@@ -20,7 +20,7 @@ M.root_dir = (function()
 end)()
 
 M.pyright_cmd = (function()
-  local cmd = {"pyright-langserver", "--stdio"}
+  local cmd = { "pyright-langserver", "--stdio" }
 
   if M.root_dir then
     table.insert(cmd, "--project")
@@ -70,4 +70,3 @@ end)()
 
 
 return M
-
