@@ -39,7 +39,7 @@ later(function()
         checkout = 'release',
     })
     local map = helpers.keymap_set
-    local command = helpers.is_mac and '<M-Tab>' or '<C-Tab>'
+    local command = helpers.is_mac and '<M-Tab>' or '<Tab>'
     map('i', command, 'copilot#Accept("\\<CR>")', {
         expr = true,
         replace_keycodes = false,
