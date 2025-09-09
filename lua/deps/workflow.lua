@@ -12,7 +12,7 @@ now(function()
         ensure_installed = {
             'lua', 'vim', 'vimdoc', 'markdown', 'markdown_inline',
             'bash', 'powershell',
-            'java', 'python', 'swift',
+            'java', 'python',
             'javascript', 'typescript', 'html', 'css',
             'xml', 'yaml', 'json', 'toml',
         },
